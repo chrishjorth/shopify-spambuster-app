@@ -3,18 +3,18 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
 import store from './store.js'
-import { post } from './utilities.js'
+import { get, post } from './utilities.js'
 
 const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
 
-const render = () => {
+const render = (apiKey, shop) => {
   const App = require('./containers/app.jsx').default
   const rootEl = document.getElementById('react-app')
 
   if (rootEl) {
     ReactDOM.render(
       <Provider store={store}>
-        <App />
+        <App apiKey={apiKey} shop={shop} />
       </Provider>,
       rootEl
     )
@@ -35,9 +35,9 @@ const startHMR = (hmr) => {
   }
 }
 
-const startReact = () => {
+const startReact = (apiKey, shop) => {
   startHMR(module.hot)
-  render()
+  render(apiKey, shop)
 }
 
 console.log(window.location.search)
@@ -68,14 +68,22 @@ if (session === null && hmac !== null && shop !== null && timestamp !== null) {
     timestamp: timestamp
   }).then(json => {
     console.log(json)
-    if (json.message === 'Success') {
-      startReact()
+    if (json.apiKey) {
+      startReact(json.apiKey, shop)
     }
   }).catch(error => {
     console.error(error)
   })
 } else {
   console.log('Installed version running')
+  get(BACKEND_URL + '/access' + window.location.search).then(json => {
+    console.log(json)
+    if (json.apiKey) {
+      startReact(json.apiKey, shop)
+    }
+  }).catch(error => {
+    console.error(error)
+  })
   startReact()
 }
 

@@ -5,6 +5,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
+import { Provider } from '@shopify/app-bridge-react'
 
 import Main from './main.jsx'
 
@@ -19,13 +20,20 @@ export const mapDispatchToProps = (dispatch) => {
 }
 
 export const ConnectedApp = (props) => {
+  console.log(props)
+  const config = {
+    apiKey: props.apiKey,
+    shopOrigin: props.shop
+  }
   return (
     <>
-      <Router>
-        <Switch>
-          <Route path='/' component={Main} />
-        </Switch>
-      </Router>
+      <Provider config={config}>
+        <Router>
+          <Switch>
+            <Route path='/' component={Main} />
+          </Switch>
+        </Router>
+      </Provider>
     </>
   )
 }
