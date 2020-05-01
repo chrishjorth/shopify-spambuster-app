@@ -84,7 +84,6 @@ if (session === null && hmac !== null && shop !== null && timestamp !== null) {
   }).catch(error => {
     console.error(error)
   })
-  startReact()
 }
 
 export default {
