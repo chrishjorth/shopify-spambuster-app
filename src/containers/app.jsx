@@ -20,7 +20,6 @@ export const mapDispatchToProps = (dispatch) => {
 }
 
 export const ConnectedApp = (props) => {
-  console.log(props)
   const config = {
     apiKey: props.apiKey,
     shopOrigin: props.shop

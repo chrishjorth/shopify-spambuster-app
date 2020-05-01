@@ -52,11 +52,13 @@ const code = urlParams.get('code')
 const session = urlParams.get('session')
 
 if (session === null && hmac !== null && shop !== null && timestamp !== null) {
+  console.log('Installing...')
   // First install
   const redirectURL = BACKEND_URL + '/install?hmac=' + hmac + '&shop=' + shop + '&timestamp=' + timestamp
   console.log(redirectURL)
   window.location.href = redirectURL
 } else if (code !== null) {
+  console.log('Confirming install...')
   // Install confirmation
   const nonce = urlParams.get('state')
 
@@ -77,7 +79,6 @@ if (session === null && hmac !== null && shop !== null && timestamp !== null) {
 } else {
   console.log('Installed version running')
   get(BACKEND_URL + '/access' + window.location.search).then(json => {
-    console.log(json)
     if (json.apiKey) {
       startReact(json.apiKey, shop)
     }
