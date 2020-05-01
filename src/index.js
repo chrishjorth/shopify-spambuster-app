@@ -49,7 +49,9 @@ const timestamp = urlParams.get('timestamp')
 
 const code = urlParams.get('code')
 
-if (window.location.hash === '#install' && hmac !== null && shop !== null && timestamp !== null) {
+const session = urlParams.get('session')
+
+if (session === null && hmac !== null && shop !== null && timestamp !== null) {
   // First install
   const redirectURL = BACKEND_URL + '/install?hmac=' + hmac + '&shop=' + shop + '&timestamp=' + timestamp
   console.log(redirectURL)
@@ -73,6 +75,7 @@ if (window.location.hash === '#install' && hmac !== null && shop !== null && tim
     console.error(error)
   })
 } else {
+  console.log('Installed version running')
   startReact()
 }
 
