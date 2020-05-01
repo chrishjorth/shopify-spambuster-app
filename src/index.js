@@ -1,7 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+
 import store from './store.js'
+import { post } from './utilities.js'
+
+const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
 
 const render = () => {
   const App = require('./containers/app.jsx').default
@@ -31,8 +35,46 @@ const startHMR = (hmr) => {
   }
 }
 
-startHMR(module.hot)
-render()
+const startReact = () => {
+  startHMR(module.hot)
+  render()
+}
+
+console.log(window.location.hash)
+
+const urlParams = new URLSearchParams(window.location.search)
+const hmac = urlParams.get('hmac')
+const shop = urlParams.get('shop')
+const timestamp = urlParams.get('timestamp')
+
+const code = urlParams.get('code')
+
+if (window.location.hash === '#install' && hmac !== null && shop !== null && timestamp !== null) {
+  // First install
+  const redirectURL = BACKEND_URL + '/install?hmac=' + hmac + '&shop=' + shop + '&timestamp=' + timestamp
+  console.log(redirectURL)
+  window.location.href = redirectURL
+} else if (code !== null) {
+  // Install confirmation
+  const nonce = urlParams.get('state')
+
+  post(BACKEND_URL + '/confirm', {
+    code: code,
+    nonce: nonce,
+    hmac: hmac,
+    shop: shop,
+    timestamp: timestamp
+  }).then(json => {
+    console.log(json)
+    if (json.message === 'Success') {
+      startReact()
+    }
+  }).catch(error => {
+    console.error(error)
+  })
+} else {
+  startReact()
+}
 
 export default {
   render: render,
