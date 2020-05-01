@@ -5,7 +5,9 @@ import {
   Switch,
   Route
 } from 'react-router-dom'
-import { Provider } from '@shopify/app-bridge-react'
+import '@shopify/polaris/styles.css'
+import enTranslations from '@shopify/polaris/locales/en.json'
+import { AppProvider } from '@shopify/polaris'
 
 import Main from './main.jsx'
 
@@ -26,13 +28,13 @@ export const ConnectedApp = (props) => {
   }
   return (
     <>
-      <Provider config={config}>
+      <AppProvider i18n={enTranslations} config={config}>
         <Router>
           <Switch>
             <Route path='/' component={Main} />
           </Switch>
         </Router>
-      </Provider>
+      </AppProvider>
     </>
   )
 }
