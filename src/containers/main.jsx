@@ -13,6 +13,7 @@ export const mapDispatchToProps = (dispatch) => {
 }
 
 export const ConnectedMain = (props) => {
+  console.log('hmm')
   return (
     <>
       <Page title='Example app'>
