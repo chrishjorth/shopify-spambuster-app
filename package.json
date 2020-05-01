@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --hot --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production && cp ./index.html ./build/index.html"
+    "build": "webpack --mode production && cp ./index.html ./build/index.html && cp ./build/main-bundle.dev.js ./main-bundle.dev.js"
   },
   "author": "Chris Hjorth - contact@chrishjorth.com",
   "license": "ISC",
