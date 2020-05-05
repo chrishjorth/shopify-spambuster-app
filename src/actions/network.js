@@ -2,12 +2,15 @@ import {
   BACKEND_URL
 } from '../config.js'
 import {
-  get
+  get,
+  post
 } from '../utilities.js'
 import {
   NETWORK_WARNING_SHOW,
   APPSTATUS_GET_START,
-  APPSTATUS_GET_DONE
+  APPSTATUS_GET_DONE,
+  INSTALL_GET_START,
+  INSTALL_GET_DONE
 } from '../constants.js'
 
 export const handleError = (error, warningText) => {
@@ -48,6 +51,38 @@ export const getAppStatus = () => {
       })
       .catch(error => {
         dispatch(handleError(error, 'Could not get status.'))
+      })
+  }
+}
+
+export const installStart = () => {
+  return {
+    type: INSTALL_GET_START,
+    payload: {}
+  }
+}
+
+export const installDone = () => {
+  return {
+    type: INSTALL_GET_DONE,
+    payload: {}
+  }
+}
+
+export const install = () => {
+  return (dispatch, getState) => {
+    const rootState = getState().root
+    const rcSiteKey = rootState.get('rcSiteKey')
+    const data = {
+      rcSiteKey: rcSiteKey
+    }
+    dispatch(installStart())
+    post(BACKEND_URL + '/setup' + window.location.search, data)
+      .then(json => {
+        dispatch(installDone(json))
+      })
+      .catch(error => {
+        dispatch(handleError(error, 'Could not install.'))
       })
   }
 }

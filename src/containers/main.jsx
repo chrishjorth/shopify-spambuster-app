@@ -39,7 +39,7 @@ export const ConnectedMain = (props) => {
 
   return (
     <>
-      <Page title='Example app'>
+      <Page title='Spambuster'>
         {props.hasScriptTag === false ? (
           <NoScriptInstalledView />
         ) : (

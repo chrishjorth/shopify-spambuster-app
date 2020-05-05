@@ -2,8 +2,18 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
   Card,
+  Form,
+  FormLayout,
+  TextField,
   Button
 } from '@shopify/polaris'
+
+import {
+  handleRcSiteKeyChange
+} from '../actions/interface.js'
+import {
+  install
+} from '../actions/network.js'
 
 export const mapStateToProps = (state, props) => {
   return {
@@ -12,13 +22,28 @@ export const mapStateToProps = (state, props) => {
 
 export const mapDispatchToProps = (dispatch) => {
   return {
+    handleRcSiteKeyChange: (value) => dispatch(handleRcSiteKeyChange(value)),
+    install: () => dispatch(install())
   }
 }
 
 export const ConnectedNoScriptInstalledView = (props) => {
+  const handleSubmit = () => {
+    props.install()
+  }
+
   return (
     <Card sectioned>
-      <Button onClick={() => window.alert('Button clicked!')}>Example button</Button>
+      <Form onSubmit={handleSubmit}>
+        <FormLayout>
+          <TextField
+            value={props.rcSiteKey}
+            onChange={props.handleRcSiteKeyChange}
+            label='reCAPTCHA site key'
+          />
+          <Button submit>Install Spambuster</Button>
+        </FormLayout>
+      </Form>
     </Card>
   )
 }
