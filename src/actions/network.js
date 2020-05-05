@@ -32,6 +32,7 @@ export const getAppStatusDone = (statusData) => {
 
 export const getAppStatus = () => {
   console.log('go network')
+  console.log(BACKEND_URL + '/status' + window.location.search)
   return (dispatch) => {
     get(BACKEND_URL + '/status' + window.location.search)
       .then(json => {
