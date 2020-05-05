@@ -8,6 +8,7 @@ export const fetch = (url, options) => {
     })
     .catch(error => {
       console.log(error)
+      throw error
     })
 }
 
