@@ -17,6 +17,7 @@ import {
 
 export const mapStateToProps = (state, props) => {
   return {
+    rcSiteKey: state.root.get('rcSiteKey')
   }
 }
 
