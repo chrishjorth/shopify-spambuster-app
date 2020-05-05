@@ -12,6 +12,7 @@ import {
 } from '../actions/network.js'
 
 export const mapStateToProps = (state, props) => {
+  console.log('MAP STATE')
   return {
     isLoading: state.root.get('isLoading'),
     hasScriptTag: state.root.get('hasScriptTag')
@@ -19,8 +20,9 @@ export const mapStateToProps = (state, props) => {
 }
 
 export const mapDispatchToProps = (dispatch) => {
+  console.log('MAP DISPATCH')
   return {
-    getAppStatus: dispatch(getAppStatus())
+    getAppStatus: () => dispatch(getAppStatus())
   }
 }
 
@@ -28,6 +30,7 @@ export const ConnectedMain = (props) => {
   console.log('main render:')
   console.log(props)
   useEffect(() => {
+    console.log('use effect')
     props.getAppStatus()
   }, [props.hasScriptTag])
 
