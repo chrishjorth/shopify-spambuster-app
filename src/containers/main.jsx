@@ -2,17 +2,17 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import {
   Page,
-  Spinner,
-  Card,
-  Button
+  Spinner
 } from '@shopify/polaris'
 
 import {
   getAppStatus
 } from '../actions/network.js'
 
+import NoScriptInstalledView from './noscriptinstalledview.jsx'
+import ScriptInstalledView from './scriptinstalledview.jsx'
+
 export const mapStateToProps = (state, props) => {
-  console.log('MAP STATE')
   return {
     isLoading: state.root.get('isLoading'),
     hasScriptTag: state.root.get('hasScriptTag')
@@ -20,19 +20,16 @@ export const mapStateToProps = (state, props) => {
 }
 
 export const mapDispatchToProps = (dispatch) => {
-  console.log('MAP DISPATCH')
   return {
     getAppStatus: () => dispatch(getAppStatus())
   }
 }
 
 export const ConnectedMain = (props) => {
-  console.log('main render:')
-  console.log(props)
   useEffect(() => {
     console.log('use effect')
     props.getAppStatus()
-  }, [props.hasScriptTag])
+  }, [])
 
   if (props.isLoading === true) {
     return (
@@ -43,9 +40,11 @@ export const ConnectedMain = (props) => {
   return (
     <>
       <Page title='Example app'>
-        <Card sectioned>
-          <Button onClick={() => window.alert('Button clicked!')}>Example button</Button>
-        </Card>
+        {props.hasScriptTag === false ? (
+          <NoScriptInstalledView />
+        ) : (
+          <ScriptInstalledView />
+        )}
       </Page>
     </>
   )

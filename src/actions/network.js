@@ -6,6 +6,7 @@ import {
 } from '../utilities.js'
 import {
   NETWORK_WARNING_SHOW,
+  APPSTATUS_GET_START,
   APPSTATUS_GET_DONE
 } from '../constants.js'
 
@@ -21,19 +22,26 @@ export const handleError = (error, warningText) => {
   }
 }
 
+export const getAppStatusStart = () => {
+  return {
+    type: APPSTATUS_GET_START,
+    payload: {}
+  }
+}
+
 export const getAppStatusDone = (statusData) => {
   console.log(statusData)
   return {
     type: APPSTATUS_GET_DONE,
     payload: {
+      hasScriptTag: statusData.hasScriptTag
     }
   }
 }
 
 export const getAppStatus = () => {
-  console.log('go network')
-  console.log(BACKEND_URL + '/status' + window.location.search)
   return (dispatch) => {
+    dispatch(getAppStatusStart())
     get(BACKEND_URL + '/status' + window.location.search)
       .then(json => {
         dispatch(getAppStatusDone(json))
