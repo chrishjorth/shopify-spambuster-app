@@ -1,19 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Page, Card, Button } from '@shopify/polaris'
+import {
+  Page,
+  Spinner,
+  Card,
+  Button
+} from '@shopify/polaris'
+
+import {
+  getAppStatus
+} from '../actions/network.js'
 
 export const mapStateToProps = (state, props) => {
   return {
+    isLoading: state.root.get('isLoading'),
+    hasScriptTag: state.root.get('hasScriptTag')
   }
 }
 
 export const mapDispatchToProps = (dispatch) => {
   return {
+    getAppStatus: dispatch(getAppStatus())
   }
 }
 
 export const ConnectedMain = (props) => {
-  console.log('hmm2')
+  useEffect(() => {
+    props.getAppStatus()
+  }, [props.hasScriptTag])
+
+  if (props.isLoading === true) {
+    return (
+      <Spinner accessibilityLabel='Spinner example' size='large' color='teal' />
+    )
+  }
+
   return (
     <>
       <Page title='Example app'>
