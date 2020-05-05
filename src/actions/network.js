@@ -1,4 +1,7 @@
 import {
+  BACKEND_URL
+} from '../config.js'
+import {
   get
 } from '../utilities.js'
 import {
@@ -28,8 +31,9 @@ export const getAppStatusDone = (statusData) => {
 }
 
 export const getAppStatus = () => {
+  console.log('go network')
   return (dispatch) => {
-    return get('/status')
+    return get(BACKEND_URL + '/status')
       .then(json => {
         dispatch(getAppStatusDone(json))
       })

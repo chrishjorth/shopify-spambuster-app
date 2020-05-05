@@ -25,6 +25,8 @@ export const mapDispatchToProps = (dispatch) => {
 }
 
 export const ConnectedMain = (props) => {
+  console.log('main render:')
+  console.log(props)
   useEffect(() => {
     props.getAppStatus()
   }, [props.hasScriptTag])

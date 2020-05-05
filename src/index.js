@@ -2,10 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
+import { BACKEND_URL } from './config.js'
 import store from './store.js'
 import { get, post } from './utilities.js'
-
-const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
 
 const render = (apiKey, shop) => {
   const App = require('./containers/app.jsx').default
