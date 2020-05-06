@@ -62,8 +62,7 @@ export const installStart = () => {
   }
 }
 
-export const installDone = (data) => {
-  console.log(data)
+export const installDone = () => {
   return {
     type: INSTALL_GET_DONE,
     payload: {}
@@ -78,16 +77,28 @@ export const install = () => {
       rcSiteKey: rcSiteKey
     }
     dispatch(installStart())
-    post(BACKEND_URL + '/setup' + window.location.search, data)
+    post(BACKEND_URL + '/setuprc' + window.location.search, data)
       .then(json => {
         if (json.success === true) {
-          dispatch(installDone(json))
+          dispatch(installJS())
         } else {
           dispatch(handleError({}, 'Could not install.'))
         }
       })
       .catch(error => {
         dispatch(handleError(error, 'Could not install.'))
+      })
+  }
+}
+
+export const installJS = () => {
+  return (dispatch) => {
+    get(BACKEND_URL + '/setupjs' + window.location.search)
+      .then(json => {
+        dispatch(installDone())
+      })
+      .catch(error => {
+        dispatch(handleError(error, 'Could not get status.'))
       })
   }
 }
