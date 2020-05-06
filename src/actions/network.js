@@ -62,7 +62,8 @@ export const installStart = () => {
   }
 }
 
-export const installDone = () => {
+export const installDone = (data) => {
+  console.log(data)
   return {
     type: INSTALL_GET_DONE,
     payload: {}
@@ -79,7 +80,11 @@ export const install = () => {
     dispatch(installStart())
     post(BACKEND_URL + '/setup' + window.location.search, data)
       .then(json => {
-        dispatch(installDone(json))
+        if (json.success === true) {
+          dispatch(installDone(json))
+        } else {
+          dispatch(handleError({}, 'Could not install.'))
+        }
       })
       .catch(error => {
         dispatch(handleError(error, 'Could not install.'))

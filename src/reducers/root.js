@@ -33,6 +33,7 @@ const rootReducer = (state, action) => {
       state = state.set('isLoading', false)
       return state
     case INSTALL_GET_DONE:
+      state = state.set('hasScriptTag', true)
       state = state.set('isLoading', false)
       return state
 
