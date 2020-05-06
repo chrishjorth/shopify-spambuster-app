@@ -1,5 +1,7 @@
 window.$(function ($) {
+  console.log('jQuery ready')
   window.grecaptcha.ready(function () {
+    console.log('IN!')
     // let captchaPassed = false
     const $submitButton = $('#comment-submit')
     console.log($submitButton)
