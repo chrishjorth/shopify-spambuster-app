@@ -1,15 +1,26 @@
 window.$(function ($) {
-  console.log('jQuery ready')
+  const SCRIPTSRC = 'https://www.chrishjorth.com/shopify-spambuster-app/dist/spambuster.js'
+
   window.grecaptcha.ready(function () {
-    console.log('IN!')
     // let captchaPassed = false
-    const $submitButton = $('#comment-submit')
-    console.log($submitButton)
+    // const $submitButton = $('#comment-submit')
+    // console.log($submitButton)
 
     const shop = window.Shopify.shop
-    console.log(shop)
 
-    console.log(window.meta)
+    const scripts = document.getElementsByTagName('script')
+    let rcSiteKey = ''
+    for (let i = 0; i < scripts.length; i++) {
+      const script = scripts[i]
+      const src = script.src.substring(0, script.src.indexOf('?'))
+      if (src === SCRIPTSRC) {
+        rcSiteKey = script.src.substring((src + '?rcSiteKey=').length)
+        rcSiteKey = rcSiteKey.substring(0, rcSiteKey.indexOf('&'))
+      }
+    }
+
+    console.log(shop)
+    console.log(rcSiteKey)
 
     /* $submitButton.on('click', function () {
       window.grecaptcha.execute('6LdhUOsUAAAAAAmliNe0htF5BY3iuDbtWSAl6Cg9', { action: 'blog_comment' }).then(function (token) {
