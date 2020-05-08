@@ -21,6 +21,7 @@ window.$(function ($) {
 
     console.log(shop)
     console.log(rcSiteKey)
+    console.log('hmm1')
 
     const $newCommentForm = $('#comment_form')
     const $submitbutton = $('input', $newCommentForm)
