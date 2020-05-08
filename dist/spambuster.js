@@ -21,7 +21,7 @@ window.$(function ($) {
 
     console.log(shop)
     console.log(rcSiteKey)
-    console.log('hmm1')
+    console.log('hmm2')
 
     const $newCommentForm = $('#comment_form')
     const $submitbutton = $('input', $newCommentForm)
@@ -30,7 +30,7 @@ window.$(function ($) {
 
     $newCommentForm.on('submit', function () {
       console.log('no submit!')
-      /* window.grecaptcha.execute(rcSiteKey, { action: 'blog_comment' })
+      window.grecaptcha.execute(rcSiteKey, { action: 'blog_comment' })
         .then(function (token) {
           const shopdomain = window.location.hostname
           const data = {
@@ -41,7 +41,7 @@ window.$(function ($) {
         })
         .catch(function (error) {
           console.error(error)
-        }) */
+        })
 
       return false
     })
