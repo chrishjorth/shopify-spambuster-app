@@ -21,7 +21,7 @@ window.$(function ($) {
 
     console.log(shop)
     console.log(rcSiteKey)
-    console.log('hmm3')
+    console.log('hmm4')
 
     const $newCommentForm = $('#comment_form')
     const $submitbutton = $('input', $newCommentForm)
@@ -45,8 +45,7 @@ window.$(function ($) {
 
     $newCommentForm.on('submit', function () {
       console.log('no submit!')
-      verifyReCaptcha()
-
+      setTimeout(verifyReCaptcha, 1)
       return false
     })
 
