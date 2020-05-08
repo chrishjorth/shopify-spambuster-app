@@ -22,12 +22,12 @@ window.$(function ($) {
 
     console.log(shop)
     console.log(rcSiteKey)
-    console.log('hmm10')
+    console.log('hmm11')
 
     const $newCommentForm = $('#comment_form')
-    const $submitbutton = $('input', $newCommentForm)
+    // const $submitbutton = $('input', $newCommentForm)
 
-    // const canSubmitForm = false
+    let canSubmitForm = false
 
     const verifyReCaptcha = function () {
       window.grecaptcha.execute(rcSiteKey, { action: 'blog_comment' })
@@ -47,6 +47,8 @@ window.$(function ($) {
               console.log(data.score)
               if (parseFloat(data.score) > 0.5) {
                 console.log('PASSED')
+                canSubmitForm = true
+                $newCommentForm.submit()
               } else {
                 console.log('FAILED')
                 // window.alert('The spam protection system did now allow this comment.\nIf this is not spam please verify your internet connection or contact us via email.')
@@ -60,13 +62,10 @@ window.$(function ($) {
     }
 
     $newCommentForm.on('submit', function () {
-      console.log('no submit!')
-      setTimeout(verifyReCaptcha, 1)
-      return false
-    })
-
-    $submitbutton.on('click', function () {
-      console.log('click')
+      if (canSubmitForm === false) {
+        setTimeout(verifyReCaptcha, 1)
+      }
+      return canSubmitForm
     })
 
     /* $submitButton.on('click', function () {
