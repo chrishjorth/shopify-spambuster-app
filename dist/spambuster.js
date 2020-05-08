@@ -25,7 +25,7 @@ window.$(function ($) {
     const $newCommentForm = $('#comment_form')
     const $submitbutton = $('input', $newCommentForm)
 
-    const canSubmitForm = false
+    // const canSubmitForm = false
 
     $newCommentForm.on('submit', function () {
       console.log('no submit!')
@@ -41,7 +41,8 @@ window.$(function ($) {
         .catch(function (error) {
           console.error(error)
         })
-      return canSubmitForm
+
+      return false
     })
 
     $submitbutton.on('click', function () {
