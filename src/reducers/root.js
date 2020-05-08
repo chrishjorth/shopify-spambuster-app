@@ -6,7 +6,8 @@ import {
   INSTALL_GET_START,
   INSTALL_GET_DONE,
 
-  RCSITEKEY_CHANGE
+  RCSITEKEY_CHANGE,
+  RCSITESECRET_CHANGE
 } from '../constants.js'
 
 export const getInitialState = () => {
@@ -15,7 +16,8 @@ export const getInitialState = () => {
 
     hasScriptTag: false,
 
-    rcSiteKey: ''
+    rcSiteKey: '',
+    rcSiteSecret: ''
   })
 }
 
@@ -39,6 +41,9 @@ const rootReducer = (state, action) => {
 
     case RCSITEKEY_CHANGE:
       state = state.set('rcSiteKey', action.payload.value)
+      return state
+    case RCSITESECRET_CHANGE:
+      state = state.set('rcSiteSecret', action.payload.value)
       return state
   }
   return state

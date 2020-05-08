@@ -73,8 +73,10 @@ export const install = () => {
   return (dispatch, getState) => {
     const rootState = getState().root
     const rcSiteKey = rootState.get('rcSiteKey')
+    const rcSiteSecret = rootState.get('rcSiteSecret')
     const data = {
-      rcSiteKey: rcSiteKey
+      rcSiteKey: rcSiteKey,
+      rcSiteSecret: rcSiteSecret
     }
     dispatch(installStart())
     post(BACKEND_URL + '/setuprc' + window.location.search, data)

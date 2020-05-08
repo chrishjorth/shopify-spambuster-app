@@ -1,5 +1,6 @@
 window.$(function ($) {
   const SCRIPTSRC = 'https://www.chrishjorth.com/shopify-spambuster-app/dist/spambuster.js'
+  const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
 
   window.grecaptcha.ready(function () {
     // let captchaPassed = false
@@ -36,7 +37,23 @@ window.$(function ($) {
             token: token
           }
           console.log(data)
-          console.log(window.location.search)
+          $.ajax(BACKEND_URL + '/verify', {
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            processData: false,
+            success: function (data) {
+              if (data.score > 0.5) {
+                console.log('PASSED')
+              } else {
+                console.log('FAILED')
+                // window.alert('The spam protection system did now allow this comment.\nIf this is not spam please verify your internet connection or contact us via email.')
+              }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+              console.error(textStatus)
+            }
+          })
         })
     }
 
