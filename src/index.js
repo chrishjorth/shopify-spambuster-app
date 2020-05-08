@@ -69,7 +69,7 @@ if (window.location.hash === '#install' && hmac !== null && shop !== null && tim
   }).then(json => {
     console.log(json)
     if (json.apiKey) {
-      startReact(json.apiKey, shop)
+      // startReact(json.apiKey, shop)
     }
   }).catch(error => {
     console.error(error)
