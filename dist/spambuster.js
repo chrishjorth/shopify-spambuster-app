@@ -2,41 +2,38 @@ window.$(function ($) {
   const SCRIPTSRC = 'https://www.chrishjorth.com/shopify-spambuster-app/dist/spambuster.js'
   const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
 
-  window.grecaptcha.ready(function () {
-    // let captchaPassed = false
-    // const $submitButton = $('#comment-submit')
-    // console.log($submitButton)
+  const shop = window.Shopify.shop
 
-    const shop = window.Shopify.shop
+  const scripts = document.getElementsByTagName('script')
+  let rcSiteKey = ''
+  for (let i = 0; i < scripts.length; i++) {
+    const script = scripts[i]
+    const src = script.src.substring(0, script.src.indexOf('?'))
+    if (src === SCRIPTSRC) {
+      rcSiteKey = script.src.substring((src + '?rcSiteKey=').length)
+      rcSiteKey = rcSiteKey.substring(0, rcSiteKey.indexOf('&'))
+    }
+  }
 
-    const scripts = document.getElementsByTagName('script')
-    let rcSiteKey = ''
-    for (let i = 0; i < scripts.length; i++) {
-      const script = scripts[i]
-      const src = script.src.substring(0, script.src.indexOf('?'))
-      if (src === SCRIPTSRC) {
-        rcSiteKey = script.src.substring((src + '?rcSiteKey=').length)
-        rcSiteKey = rcSiteKey.substring(0, rcSiteKey.indexOf('&'))
-      }
+  console.log('hmm12')
+
+  const $newCommentForm = $('#comment_form')
+
+  let canSubmitForm = false
+
+  const verifyReCaptcha = function () {
+    if (!window.grecaptcha) {
+      console.error('Error with Google ReCaptcha')
+      return
     }
 
-    console.log(shop)
-    console.log(rcSiteKey)
-    console.log('hmm11')
-
-    const $newCommentForm = $('#comment_form')
-    // const $submitbutton = $('input', $newCommentForm)
-
-    let canSubmitForm = false
-
-    const verifyReCaptcha = function () {
+    window.grecaptcha.ready(function () {
       window.grecaptcha.execute(rcSiteKey, { action: 'blog_comment' })
         .then(function (token) {
           const data = {
             shop: shop,
             token: token
           }
-          console.log(data)
           $.ajax(BACKEND_URL + '/verify', {
             method: 'POST',
             contentType: 'application/json',
@@ -59,16 +56,17 @@ window.$(function ($) {
             }
           })
         })
-    }
-
-    $newCommentForm.on('submit', function () {
-      if (canSubmitForm === false) {
-        setTimeout(verifyReCaptcha, 1)
-      }
-      return canSubmitForm
     })
+  }
 
-    /* $submitButton.on('click', function () {
+  $newCommentForm.on('submit', function () {
+    if (canSubmitForm === false) {
+      setTimeout(verifyReCaptcha, 1)
+    }
+    return canSubmitForm
+  })
+
+  /* $submitButton.on('click', function () {
       window.grecaptcha.execute('6LdhUOsUAAAAAAmliNe0htF5BY3iuDbtWSAl6Cg9', { action: 'blog_comment' }).then(function (token) {
         const shopdomain = window.location.hostname
         const data = {
@@ -99,5 +97,4 @@ window.$(function ($) {
     $submitButton.closest('form').on('submit', function (event) {
       return captchaPassed
     }) */
-  })
 })
