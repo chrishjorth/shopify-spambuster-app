@@ -21,15 +21,14 @@ window.$(function ($) {
 
     console.log(shop)
     console.log(rcSiteKey)
-    console.log('hmm2')
+    console.log('hmm3')
 
     const $newCommentForm = $('#comment_form')
     const $submitbutton = $('input', $newCommentForm)
 
     // const canSubmitForm = false
 
-    $newCommentForm.on('submit', function () {
-      console.log('no submit!')
+    const verifyReCaptcha = function () {
       window.grecaptcha.execute(rcSiteKey, { action: 'blog_comment' })
         .then(function (token) {
           const shopdomain = window.location.hostname
@@ -42,6 +41,11 @@ window.$(function ($) {
         .catch(function (error) {
           console.error(error)
         })
+    }
+
+    $newCommentForm.on('submit', function () {
+      console.log('no submit!')
+      verifyReCaptcha()
 
       return false
     })
