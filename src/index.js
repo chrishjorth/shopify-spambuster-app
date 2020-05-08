@@ -49,14 +49,12 @@ const timestamp = urlParams.get('timestamp')
 
 const code = urlParams.get('code')
 
-const session = urlParams.get('session')
-
-if (session === null && hmac !== null && shop !== null && timestamp !== null) {
+if (window.location.hash === '#install' && hmac !== null && shop !== null && timestamp !== null) {
   console.log('Installing...')
   // First install
   const redirectURL = BACKEND_URL + '/install' + window.location.search
   console.log(redirectURL)
-  // window.location.href = redirectURL
+  window.location.href = redirectURL
 } else if (code !== null) {
   console.log('Confirming install...')
   // Install confirmation
