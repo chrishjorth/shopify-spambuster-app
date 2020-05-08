@@ -25,9 +25,20 @@ window.$(function ($) {
     const $newCommentForm = $('#comment_form')
     const $submitbutton = $('input', $newCommentForm)
 
+    const canSubmitForm = false
+
     $newCommentForm.on('submit', function () {
       console.log('no submit!')
-      return false
+      window.grecaptcha.execute('6LdhUOsUAAAAAAmliNe0htF5BY3iuDbtWSAl6Cg9', { action: 'blog_comment' })
+        .then(function (token) {
+          const shopdomain = window.location.hostname
+          const data = {
+            shopdomain: shopdomain,
+            token: token
+          }
+          console.log(data)
+        })
+      return canSubmitForm
     })
 
     $submitbutton.on('click', function () {
