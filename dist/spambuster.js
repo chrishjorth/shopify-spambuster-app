@@ -43,6 +43,7 @@ window.$(function ($) {
             data: JSON.stringify(data),
             processData: false,
             success: function (data) {
+              console.log(data)
               if (data.score > 0.5) {
                 console.log('PASSED')
               } else {
