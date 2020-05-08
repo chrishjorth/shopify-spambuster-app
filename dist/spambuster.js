@@ -22,7 +22,7 @@ window.$(function ($) {
 
     console.log(shop)
     console.log(rcSiteKey)
-    console.log('hmm8')
+    console.log('hmm9')
 
     const $newCommentForm = $('#comment_form')
     const $submitbutton = $('input', $newCommentForm)
@@ -43,8 +43,8 @@ window.$(function ($) {
             data: JSON.stringify(data),
             processData: false,
             success: function (data) {
-              console.log(data)
-              if (data.score > 0.5) {
+              console.log(data.score)
+              if (parseFloat(data.score) > 0.5) {
                 console.log('PASSED')
               } else {
                 console.log('FAILED')
