@@ -70,7 +70,7 @@ if (window.location.hash === '#install' && hmac !== null && shop !== null && tim
     console.log(json)
     if (json.apiKey) {
       // startReact(json.apiKey, shop)
-      window.location.href = 'https://' + window.location.host + window.location.pathname
+      window.location.href = 'https://' + shop + '/admin/apps'
     }
   }).catch(error => {
     console.error(error)
