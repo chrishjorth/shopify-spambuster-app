@@ -39,9 +39,6 @@ const startReact = (apiKey, shop) => {
   render(apiKey, shop)
 }
 
-console.log(window.location.search)
-console.log(window.location.hash)
-
 const urlParams = new URLSearchParams(window.location.search)
 const hmac = urlParams.get('hmac')
 const shop = urlParams.get('shop')
@@ -55,7 +52,6 @@ if (session === null && code === null && hmac !== null && shop !== null && times
   console.log('Installing...')
   // First install
   const redirectURL = BACKEND_URL + '/install' + window.location.search
-  console.log(redirectURL)
   window.location.href = redirectURL
 } else if (code !== null) {
   console.log('Confirming install...')
@@ -69,7 +65,6 @@ if (session === null && code === null && hmac !== null && shop !== null && times
     shop: shop,
     timestamp: timestamp
   }).then(json => {
-    console.log(json)
     if (json.apiKey) {
       window.location.href = 'https://' + shop + '/admin/apps/spambuster-dev'
     }

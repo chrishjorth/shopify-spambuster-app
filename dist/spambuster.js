@@ -22,6 +22,18 @@ window.$(function ($) {
     console.log(shop)
     console.log(rcSiteKey)
 
+    const $newCommentForm = $('#comment_form')
+    const $submitbutton = $('input', $newCommentForm)
+
+    $newCommentForm.on('submit', function () {
+      console.log('no submit!')
+      return false
+    })
+
+    $submitbutton.on('click', function () {
+      console.log('click')
+    })
+
     /* $submitButton.on('click', function () {
       window.grecaptcha.execute('6LdhUOsUAAAAAAmliNe0htF5BY3iuDbtWSAl6Cg9', { action: 'blog_comment' }).then(function (token) {
         const shopdomain = window.location.hostname
