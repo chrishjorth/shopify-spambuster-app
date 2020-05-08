@@ -51,7 +51,7 @@ const code = urlParams.get('code')
 
 const session = urlParams.get('session')
 
-if (session === null && hmac !== null && shop !== null && timestamp !== null) {
+if (session === null && code === null && hmac !== null && shop !== null && timestamp !== null) {
   console.log('Installing...')
   // First install
   const redirectURL = BACKEND_URL + '/install' + window.location.search
