@@ -29,7 +29,7 @@ window.$(function ($) {
 
     $newCommentForm.on('submit', function () {
       console.log('no submit!')
-      window.grecaptcha.execute(rcSiteKey, { action: 'blog_comment' })
+      /* window.grecaptcha.execute(rcSiteKey, { action: 'blog_comment' })
         .then(function (token) {
           const shopdomain = window.location.hostname
           const data = {
@@ -40,7 +40,7 @@ window.$(function ($) {
         })
         .catch(function (error) {
           console.error(error)
-        })
+        }) */
 
       return false
     })
