@@ -55,7 +55,7 @@ if (session === null && hmac !== null && shop !== null && timestamp !== null) {
   // First install
   const redirectURL = BACKEND_URL + '/install?hmac=' + hmac + '&shop=' + shop + '&timestamp=' + timestamp
   console.log(redirectURL)
-  window.location.href = redirectURL
+  // window.location.href = redirectURL
 } else if (code !== null) {
   console.log('Confirming install...')
   // Install confirmation
