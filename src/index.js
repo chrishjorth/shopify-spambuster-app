@@ -40,6 +40,7 @@ const startReact = (apiKey, shop) => {
 }
 
 console.log(window.location.search)
+console.log(window.location.hash)
 
 const urlParams = new URLSearchParams(window.location.search)
 const hmac = urlParams.get('hmac')
@@ -53,7 +54,7 @@ const session = urlParams.get('session')
 if (session === null && hmac !== null && shop !== null && timestamp !== null) {
   console.log('Installing...')
   // First install
-  const redirectURL = BACKEND_URL + '/install?hmac=' + hmac + '&shop=' + shop + '&timestamp=' + timestamp
+  const redirectURL = BACKEND_URL + '/install' + window.location.search
   console.log(redirectURL)
   // window.location.href = redirectURL
 } else if (code !== null) {
