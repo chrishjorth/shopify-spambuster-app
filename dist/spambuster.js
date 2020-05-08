@@ -21,7 +21,7 @@ window.$(function ($) {
 
     console.log(shop)
     console.log(rcSiteKey)
-    console.log('hmm7')
+    console.log('hmm8')
 
     const $newCommentForm = $('#comment_form')
     const $submitbutton = $('input', $newCommentForm)
@@ -31,7 +31,12 @@ window.$(function ($) {
     const verifyReCaptcha = function () {
       window.grecaptcha.execute(rcSiteKey, { action: 'blog_comment' })
         .then(function (token) {
-          console.log(token)
+          const data = {
+            shop: shop,
+            token: token
+          }
+          console.log(data)
+          console.log(window.location.search)
         })
     }
 
