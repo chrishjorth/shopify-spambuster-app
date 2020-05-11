@@ -12,7 +12,7 @@ window.$(function ($) {
 
   const canSubmitForm = false
 
-  // const shop = window.Shopify.shop
+  const shop = window.Shopify.shop
 
   const scripts = document.getElementsByTagName('script')
   let rcSiteKey = ''
