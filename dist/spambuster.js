@@ -8,6 +8,7 @@ window.$(function ($) {
     '<a href="https://policies.google.com/privacy">Privacy Policy</a> and' +
     '<a href="https://policies.google.com/terms">Terms of Service</a> apply.' +
     '</div>'
+  const hashSep = '|%|'
 
   const canSubmitForm = false
 
@@ -36,9 +37,20 @@ window.$(function ($) {
   scriptNode.nonce = nonce
   document.getElementsByTagName('head')[0].appendChild(scriptNode)
 
-  console.log('hmm19')
+  console.log('hmm20')
 
   const $newCommentForm = $('#comment_form')
+
+  // https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
+  const hash = function (stringToHash) {
+    let hash = 0
+    for (let i = 0; i < stringToHash.length; i++) {
+      const chr = this.charCodeAt(stringToHash)
+      hash = ((hash << 5) - hash) + chr
+      hash |= 0 // Convert to 32bit integer
+    }
+    return hash
+  }
 
   const verifyReCaptcha = function () {
     if (!window.grecaptcha) {
@@ -49,14 +61,22 @@ window.$(function ($) {
     window.grecaptcha.ready(function () {
       window.grecaptcha.execute(rcSiteKey, { action: 'blog_comment' })
         .then(function (token) {
-          const commentName = $('input[name="comment[author]"]', $newCommentForm)
-          console.log(commentName)
+          const commentName = $('input[name="comment[author]"]', $newCommentForm).val()
+          const commentEmail = $('input[name="comment[email]"]', $newCommentForm).val()
+          const commentBody = $('textarea[name="comment[body]"]', $newCommentForm).val()
 
-          /* const data = {
+          const data = {
             shop: shop,
-            token: token
+            token: token,
+            commentHash: hash(commentName + hashSep + commentEmail + hashSep + commentBody)
           }
-          $.ajax(BACKEND_URL + '/verify', {
+
+          console.log(commentName)
+          console.log(commentEmail)
+          console.log(commentBody)
+          console.log(data)
+
+          /* $.ajax(BACKEND_URL + '/verify', {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
