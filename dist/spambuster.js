@@ -74,7 +74,7 @@ window.$(function ($) {
   scriptNode.nonce = nonce
   document.getElementsByTagName('head')[0].appendChild(scriptNode)
 
-  console.log('hmm16')
+  console.log('hmm17')
 
   const $newCommentForm = $('#comment_form')
 
@@ -88,6 +88,6 @@ window.$(function ($) {
       return canSubmitForm
     })
 
-    $newCommentForm.appendChild(RECAPTCHA_TEXT)
+    $newCommentForm.append(RECAPTCHA_TEXT)
   }
 })
