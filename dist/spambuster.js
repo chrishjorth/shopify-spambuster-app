@@ -1,6 +1,6 @@
 window.$(function ($) {
   const SCRIPTSRC = 'https://www.chrishjorth.com/shopify-spambuster-app/dist/spambuster.js'
-  const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
+  // const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
   const RECAPTCHA_SCRIPT_SRC = 'https://www.google.com/recaptcha/api.js'
   const RECAPTCHA_TEXT = '' +
     '<div class="mssb-rc-text">' +
@@ -9,7 +9,7 @@ window.$(function ($) {
     '<a href="https://policies.google.com/terms">Terms of Service</a> apply.' +
     '</div>'
 
-  let canSubmitForm = false
+  const canSubmitForm = false
 
   const shop = window.Shopify.shop
 
@@ -36,7 +36,7 @@ window.$(function ($) {
   scriptNode.nonce = nonce
   document.getElementsByTagName('head')[0].appendChild(scriptNode)
 
-  console.log('hmm21')
+  console.log('hmm22')
 
   const $newCommentForm = $('#comment_form')
 
@@ -63,7 +63,7 @@ window.$(function ($) {
 
           console.log(data)
 
-          $.ajax(BACKEND_URL + '/verify', {
+          /* $.ajax(BACKEND_URL + '/verify', {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -81,7 +81,7 @@ window.$(function ($) {
             error: function (jqXHR, textStatus, errorThrown) {
               console.error(textStatus)
             }
-          })
+          }) */
         })
     })
   }
