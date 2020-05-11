@@ -3,7 +3,7 @@ window.$(function ($) {
   const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
   const RECAPTCHA_SCRIPT_SRC = 'https://www.google.com/recaptcha/api.js'
   const RECAPTCHA_TEXT = '' +
-    '<div>' +
+    '<div class="mssb-rc-text">' +
     'This site is protected by reCAPTCHA and the Google' +
     '<a href="https://policies.google.com/privacy">Privacy Policy</a> and' +
     '<a href="https://policies.google.com/terms">Terms of Service</a> apply.' +
@@ -74,7 +74,7 @@ window.$(function ($) {
   scriptNode.nonce = nonce
   document.getElementsByTagName('head')[0].appendChild(scriptNode)
 
-  console.log('hmm17')
+  console.log('hmm18')
 
   const $newCommentForm = $('#comment_form')
 
@@ -89,5 +89,7 @@ window.$(function ($) {
     })
 
     $newCommentForm.append(RECAPTCHA_TEXT)
+
+    document.head.insertAdjacentHTML('beforeend', '<style>.grecaptcha-badge { visibility: hidden; }</style>')
   }
 })
