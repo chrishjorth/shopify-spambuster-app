@@ -1,6 +1,6 @@
 window.$(function ($) {
   const SCRIPTSRC = 'https://www.chrishjorth.com/shopify-spambuster-app/dist/spambuster.js'
-  // const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
+  const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
   const RECAPTCHA_SCRIPT_SRC = 'https://www.google.com/recaptcha/api.js'
   const RECAPTCHA_TEXT = '' +
     '<div class="mssb-rc-text">' +
@@ -8,9 +8,8 @@ window.$(function ($) {
     '<a href="https://policies.google.com/privacy">Privacy Policy</a> and' +
     '<a href="https://policies.google.com/terms">Terms of Service</a> apply.' +
     '</div>'
-  const hashSep = '|%|'
 
-  const canSubmitForm = false
+  let canSubmitForm = false
 
   const shop = window.Shopify.shop
 
@@ -37,20 +36,9 @@ window.$(function ($) {
   scriptNode.nonce = nonce
   document.getElementsByTagName('head')[0].appendChild(scriptNode)
 
-  console.log('hmm20')
+  console.log('hmm21')
 
   const $newCommentForm = $('#comment_form')
-
-  // https://stackoverflow.com/questions/7616461/generate-a-hash-from-string-in-javascript
-  const hash = function (stringToHash) {
-    let hash = 0
-    for (let i = 0; i < stringToHash.length; i++) {
-      const chr = this.charCodeAt(stringToHash)
-      hash = ((hash << 5) - hash) + chr
-      hash |= 0 // Convert to 32bit integer
-    }
-    return hash
-  }
 
   const verifyReCaptcha = function () {
     if (!window.grecaptcha) {
@@ -68,15 +56,14 @@ window.$(function ($) {
           const data = {
             shop: shop,
             token: token,
-            commentHash: hash(commentName + hashSep + commentEmail + hashSep + commentBody)
+            commentName: commentName,
+            commentEmail: commentEmail,
+            commentBody: commentBody
           }
 
-          console.log(commentName)
-          console.log(commentEmail)
-          console.log(commentBody)
           console.log(data)
 
-          /* $.ajax(BACKEND_URL + '/verify', {
+          $.ajax(BACKEND_URL + '/verify', {
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),
@@ -94,7 +81,7 @@ window.$(function ($) {
             error: function (jqXHR, textStatus, errorThrown) {
               console.error(textStatus)
             }
-          }) */
+          })
         })
     })
   }
