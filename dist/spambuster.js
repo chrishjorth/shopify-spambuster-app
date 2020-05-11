@@ -2,6 +2,12 @@ window.$(function ($) {
   const SCRIPTSRC = 'https://www.chrishjorth.com/shopify-spambuster-app/dist/spambuster.js'
   const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
   const RECAPTCHA_SCRIPT_SRC = 'https://www.google.com/recaptcha/api.js'
+  const RECAPTCHA_TEXT = '' +
+    '<div>' +
+    'This site is protected by reCAPTCHA and the Google' +
+    '<a href="https://policies.google.com/privacy">Privacy Policy</a> and' +
+    '<a href="https://policies.google.com/terms">Terms of Service</a> apply.' +
+    '</div>'
 
   let canSubmitForm = false
   const verifyReCaptcha = function () {
@@ -55,16 +61,20 @@ window.$(function ($) {
     }
   }
 
+  // https://developers.google.com/recaptcha/docs/faq
   // https://github.com/google/google-api-javascript-client/issues/397
+  // https://community.shopify.com/c/Technical-Q-A/GTM-on-Shopify-Plus-store-now-Reporting-CSP-issues/m-p/666613
+  // Shopify CSP headers are set to report scripts but still allow them to run
+
   const nonce = 'this_is_my_nonce'
   const scriptNode = document.createElement('script')
-  scriptNode.src = RECAPTCHA_SCRIPT_SRC + '?render=' + rcSiteKey + '&nonce=' + nonce
+  scriptNode.src = RECAPTCHA_SCRIPT_SRC + '?render=' + rcSiteKey
   scriptNode.type = 'text/javascript'
   scriptNode.charset = 'utf-8'
   scriptNode.nonce = nonce
   document.getElementsByTagName('head')[0].appendChild(scriptNode)
 
-  console.log('hmm15')
+  console.log('hmm16')
 
   const $newCommentForm = $('#comment_form')
 
@@ -77,5 +87,7 @@ window.$(function ($) {
       }
       return canSubmitForm
     })
+
+    $newCommentForm.appendChild(RECAPTCHA_TEXT)
   }
 })
