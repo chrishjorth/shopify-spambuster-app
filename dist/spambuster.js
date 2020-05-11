@@ -31,13 +31,13 @@ window.$(function ($) {
             success: function (data) {
               data = JSON.parse(data)
               console.log(data.score)
+              data.score = 0.1
               if (parseFloat(data.score) > 0.5) {
-                console.log('PASSED')
                 canSubmitForm = true
                 $newCommentForm.submit()
               } else {
                 console.log('FAILED')
-                // window.alert('The spam protection system did now allow this comment.\nIf this is not spam please verify your internet connection or contact us via email.')
+                window.alert('The spam protection system did now allow this comment.\nIf this is not spam please verify your internet connection or contact us via email.')
               }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -74,11 +74,9 @@ window.$(function ($) {
   scriptNode.nonce = nonce
   document.getElementsByTagName('head')[0].appendChild(scriptNode)
 
-  console.log('hmm18')
+  console.log('hmm19')
 
   const $newCommentForm = $('#comment_form')
-
-  console.log($newCommentForm)
 
   if ($newCommentForm.length > 0) {
     $newCommentForm.on('submit', function () {
