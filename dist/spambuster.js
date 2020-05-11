@@ -1,7 +1,9 @@
 window.$(function ($) {
   const SCRIPTSRC = 'https://www.chrishjorth.com/shopify-spambuster-app/dist/spambuster.js'
   const BACKEND_URL = 'https://v7qqtjkwvj.execute-api.eu-west-1.amazonaws.com/dev'
+  const RECAPTCHA_SCRIPT_SRC = 'https://www.google.com/recaptcha/api.js?render='
 
+  let canSubmitForm = false
   const verifyReCaptcha = function () {
     if (!window.grecaptcha) {
       console.error('Error with Google ReCaptcha')
@@ -53,17 +55,26 @@ window.$(function ($) {
     }
   }
 
+  // https://github.com/google/google-api-javascript-client/issues/397
+  const scriptNode = document.createElement('script')
+  scriptNode.src = RECAPTCHA_SCRIPT_SRC + rcSiteKey
+  scriptNode.type = 'text/javascript'
+  scriptNode.charset = 'utf-8'
+  scriptNode.nonce = 'this_is_my_nonce'
+  document.getElementsByTagName('head')[0].appendChild(scriptNode)
+
   console.log('hmm13')
 
   const $newCommentForm = $('#comment_form')
 
   console.log($newCommentForm)
 
-  let canSubmitForm = false
-  $newCommentForm.on('submit', function () {
-    if (canSubmitForm === false) {
-      setTimeout(verifyReCaptcha, 1)
-    }
-    return canSubmitForm
-  })
+  if ($newCommentForm.length > 0) {
+    $newCommentForm.on('submit', function () {
+      if (canSubmitForm === false) {
+        setTimeout(verifyReCaptcha, 1)
+      }
+      return canSubmitForm
+    })
+  }
 })

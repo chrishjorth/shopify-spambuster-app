@@ -82,7 +82,8 @@ export const install = () => {
     post(BACKEND_URL + '/setuprc' + window.location.search, data)
       .then(json => {
         if (json.success === true) {
-          dispatch(installJS())
+          // dispatch(installJS())
+          dispatch(installDone())
         } else {
           dispatch(handleError({}, 'Could not install.'))
         }
@@ -93,7 +94,7 @@ export const install = () => {
   }
 }
 
-export const installJS = () => {
+/* export const installJS = () => {
   return (dispatch) => {
     get(BACKEND_URL + '/setupjs' + window.location.search)
       .then(json => {
@@ -103,4 +104,4 @@ export const installJS = () => {
         dispatch(handleError(error, 'Could not get status.'))
       })
   }
-}
+} */
