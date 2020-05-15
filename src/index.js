@@ -6,6 +6,8 @@ import { BACKEND_URL } from './config.js'
 import store from './store.js'
 import { get, post } from './utilities.js'
 
+console.log('Spambuster v0.1.0')
+
 const render = (apiKey, shop) => {
   const App = require('./containers/app.jsx').default
   const rootEl = document.getElementById('react-app')

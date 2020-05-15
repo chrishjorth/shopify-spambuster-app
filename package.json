@@ -22,7 +22,6 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "save-dev": "0.0.1-security",
     "standard": "^14.3.3"
   },
   "devDependencies": {
