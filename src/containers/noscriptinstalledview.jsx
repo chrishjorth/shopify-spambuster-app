@@ -35,9 +35,16 @@ export const ConnectedNoScriptInstalledView = (props) => {
   const handleSubmit = () => {
     props.install()
   }
-
+  // TODO: Specify GDPR
+  // TODO: Write guide and info
   return (
     <Card sectioned>
+      <p>
+        Please insert your reCAPTCHA v3 keys. IMPORTANT: This application only supports v3.
+      </p>
+      <p>
+        Please get your keys here: <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>.
+      </p>
       <Form onSubmit={handleSubmit}>
         <FormLayout>
           <TextField
