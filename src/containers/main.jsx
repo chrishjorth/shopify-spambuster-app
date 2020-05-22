@@ -27,7 +27,6 @@ export const mapDispatchToProps = (dispatch) => {
 
 export const ConnectedMain = (props) => {
   useEffect(() => {
-    console.log('use effect')
     props.getAppStatus()
   }, [])
 

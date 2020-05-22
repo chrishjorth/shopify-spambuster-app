@@ -33,7 +33,6 @@ export const getAppStatusStart = () => {
 }
 
 export const getAppStatusDone = (statusData) => {
-  console.log(statusData)
   return {
     type: APPSTATUS_GET_DONE,
     payload: {
@@ -82,7 +81,6 @@ export const install = () => {
     post(BACKEND_URL + '/setuprc' + window.location.search, data)
       .then(json => {
         if (json.success === true) {
-          // dispatch(installJS())
           dispatch(installDone())
         } else {
           dispatch(handleError({}, 'Could not install.'))
@@ -93,15 +91,3 @@ export const install = () => {
       })
   }
 }
-
-/* export const installJS = () => {
-  return (dispatch) => {
-    get(BACKEND_URL + '/setupjs' + window.location.search)
-      .then(json => {
-        dispatch(installDone())
-      })
-      .catch(error => {
-        dispatch(handleError(error, 'Could not get status.'))
-      })
-  }
-} */
