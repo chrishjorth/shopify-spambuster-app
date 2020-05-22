@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 
-import { BACKEND_URL } from './config.js'
+import { BACKEND_URL, STAGE } from './config.js'
 import store from './store.js'
 import { get, post } from './utilities.js'
 
-console.log('Spambuster v0.1.0')
+console.log('Spambuster v0.1.0 - ' + STAGE)
 
 const render = (apiKey, shop) => {
   const App = require('./containers/app.jsx').default
