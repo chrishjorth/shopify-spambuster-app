@@ -48,7 +48,7 @@ export const getAppStatus = () => {
       .then(json => {
         console.log(json)
         if (json.isSubscribed === false) {
-          window.location.href = json.confirmationURL
+          window.top.location.href = json.confirmationURL
           return
         }
         dispatch(getAppStatusDone(json))
