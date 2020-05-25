@@ -87,7 +87,8 @@ if (session === null && code === null && hmac !== null && shop !== null && times
   })
 } else if (chargeID !== null) {
   console.log('Returned from billing confirmation')
-  // get(BACKEND_URL + '/activate' + window.location.search).then(json => {
+  console.log(window.location.host)
+  // get(BACKEND_URL + '/activate?charge_id=' + chargeID + '&shop=' + window.location.host).then(json => {
   // startApp(shop)
   // })
 } else {
