@@ -88,9 +88,9 @@ if (session === null && code === null && hmac !== null && shop !== null && times
 } else if (chargeID !== null) {
   console.log('Returned from billing confirmation')
   console.log(window.location.search)
-  // get(BACKEND_URL + '/activate?charge_id=' + chargeID + '&shop=' + window.location.host).then(json => {
-  // startApp(shop)
-  // })
+  get(BACKEND_URL + '/activate' + window.location.search).then(json => {
+    startApp(shop)
+  })
 } else {
   console.log('Installed version running')
   startApp(shop)
