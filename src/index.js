@@ -90,6 +90,8 @@ if (session === null && code === null && hmac !== null && shop !== null && times
   console.log(window.location.search)
   get(BACKEND_URL + '/activate' + window.location.search).then(json => {
     startApp(shop)
+  }).catch(error => {
+    console.error(error)
   })
 } else {
   console.log('Installed version running')
