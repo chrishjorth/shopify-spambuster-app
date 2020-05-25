@@ -41,6 +41,16 @@ const startReact = (apiKey, shop) => {
   render(apiKey, shop)
 }
 
+const startApp = (shop) => {
+  get(BACKEND_URL + '/access' + window.location.search).then(json => {
+    if (json.apiKey) {
+      startReact(json.apiKey, shop)
+    }
+  }).catch(error => {
+    console.error(error)
+  })
+}
+
 const urlParams = new URLSearchParams(window.location.search)
 const hmac = urlParams.get('hmac')
 const shop = urlParams.get('shop')
@@ -49,6 +59,10 @@ const timestamp = urlParams.get('timestamp')
 const code = urlParams.get('code')
 
 const session = urlParams.get('session')
+
+const hash = window.location.hash
+
+console.log(hash)
 
 if (session === null && code === null && hmac !== null && shop !== null && timestamp !== null) {
   console.log('Installing...')
@@ -73,15 +87,14 @@ if (session === null && code === null && hmac !== null && shop !== null && times
   }).catch(error => {
     console.error(error)
   })
+} else if (hash === '#billingreturn') {
+  console.log('Returned from billing confirmation')
+  get(BACKEND_URL + '/activate' + window.location.search).then(json => {
+    startApp(shop)
+  })
 } else {
   console.log('Installed version running')
-  get(BACKEND_URL + '/access' + window.location.search).then(json => {
-    if (json.apiKey) {
-      startReact(json.apiKey, shop)
-    }
-  }).catch(error => {
-    console.error(error)
-  })
+  startApp(shop)
 }
 
 export default {
