@@ -6,8 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --hot --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-dev": "webpack --mode development && cp ./build/dev/main-bundle.dev.js ./main-bundle.dev.js && cp ./build/dev/index.html ./index-dev.html",
-    "build-prod": "webpack --mode production && cp ./build/prod/main-bundle.prod.js ./main-bundle.prod.js && cp ./build/prod/index.html ./index.html"
+    "build-dev": "webpack --mode development && cp ./build/dev/main-bundle.js ./main-bundle.js",
+    "build-prod": "webpack --mode production && cp ./build/prod/main-bundle.js ./main-bundle.js"
   },
   "author": "Chris Hjorth - contact@chrishjorth.com",
   "license": "ISC",
