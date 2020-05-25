@@ -60,9 +60,7 @@ const code = urlParams.get('code')
 
 const session = urlParams.get('session')
 
-const hash = window.location.hash
-
-console.log(hash)
+const chargeID = urlParams.get('charge_id')
 
 if (session === null && code === null && hmac !== null && shop !== null && timestamp !== null) {
   console.log('Installing...')
@@ -87,11 +85,11 @@ if (session === null && code === null && hmac !== null && shop !== null && times
   }).catch(error => {
     console.error(error)
   })
-} else if (hash === '#billingreturn') {
+} else if (chargeID !== null) {
   console.log('Returned from billing confirmation')
-  get(BACKEND_URL + '/activate' + window.location.search).then(json => {
-    startApp(shop)
-  })
+  // get(BACKEND_URL + '/activate' + window.location.search).then(json => {
+  // startApp(shop)
+  // })
 } else {
   console.log('Installed version running')
   startApp(shop)
