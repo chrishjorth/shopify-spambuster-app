@@ -6,7 +6,7 @@ import { BACKEND_URL, STAGE } from './config.js'
 import store from './store.js'
 import { get, post } from './utilities.js'
 
-console.log('Spambuster v0.1.0 - ' + STAGE)
+console.log('Spambuster app v0.1.1 - ' + STAGE)
 
 const render = (apiKey, shop) => {
   const App = require('./containers/app.jsx').default
