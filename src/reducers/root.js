@@ -12,7 +12,7 @@ import {
 
 export const getInitialState = () => {
   return Map({
-    isLoading: false,
+    isLoading: true, // To avoid displaying data prematurely
 
     hasScriptTag: false,
 

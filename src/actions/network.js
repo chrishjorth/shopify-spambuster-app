@@ -46,7 +46,6 @@ export const getAppStatus = () => {
     dispatch(getAppStatusStart())
     get(BACKEND_URL + '/status' + window.location.search)
       .then(json => {
-        console.log(json)
         if (json.isSubscribed === false) {
           window.top.location.href = json.confirmationURL
           return
