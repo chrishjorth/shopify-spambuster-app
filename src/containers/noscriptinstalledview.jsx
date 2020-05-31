@@ -43,7 +43,7 @@ export const ConnectedNoScriptInstalledView = (props) => {
         Please insert your reCAPTCHA v3 keys. IMPORTANT: This application only supports v3.
       </p>
       <p>
-        Please get your keys here: <a href='https://www.google.com/recaptcha/admin/create'>https://www.google.com/recaptcha/admin/create</a>.
+        Please get your keys here: <a href='https://www.google.com/recaptcha/admin/create' target='_blank' rel='noopener noreferrer'>https://www.google.com/recaptcha/admin/create</a>.
       </p>
       <Form onSubmit={handleSubmit}>
         <FormLayout>
