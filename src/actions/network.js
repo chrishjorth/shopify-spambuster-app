@@ -10,7 +10,9 @@ import {
   APPSTATUS_GET_START,
   APPSTATUS_GET_DONE,
   INSTALL_GET_START,
-  INSTALL_GET_DONE
+  INSTALL_GET_DONE,
+  UPDATE_POST_START,
+  UPDATE_POST_DONE
 } from '../constants.js'
 
 export const handleError = (error, warningText) => {
@@ -92,6 +94,44 @@ export const install = () => {
       })
       .catch(error => {
         dispatch(handleError(error, 'Could not install.'))
+      })
+  }
+}
+
+export const updateStart = () => {
+  return {
+    type: UPDATE_POST_START,
+    payload: {}
+  }
+}
+
+export const updateDone = () => {
+  return {
+    type: UPDATE_POST_DONE,
+    payload: {}
+  }
+}
+
+export const update = () => {
+  return (dispatch, getState) => {
+    const rootState = getState().root
+    const rcSiteKey = rootState.get('rcSiteKey')
+    const rcSiteSecret = rootState.get('rcSiteSecret')
+    const data = {
+      rcSiteKey: rcSiteKey,
+      rcSiteSecret: rcSiteSecret
+    }
+    dispatch(updateStart())
+    post(BACKEND_URL + '/update' + window.location.search, data)
+      .then(json => {
+        if (json.success === true) {
+          dispatch(updateDone())
+        } else {
+          dispatch(handleError({}, 'Connection error. Could not update.'))
+        }
+      })
+      .catch(error => {
+        dispatch(handleError(error, 'Connection error. Could not update.'))
       })
   }
 }

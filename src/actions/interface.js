@@ -1,6 +1,8 @@
 import {
   RCSITEKEY_CHANGE,
-  RCSITESECRET_CHANGE
+  RCSITESECRET_CHANGE,
+
+  ERROR_DISMISS
 } from '../constants.js'
 
 export const handleRcSiteKeyChange = (value) => {
@@ -18,5 +20,12 @@ export const handleRcSiteSecretChange = (value) => {
     payload: {
       value: value
     }
+  }
+}
+
+export const dismissError = () => {
+  return {
+    type: ERROR_DISMISS,
+    payload: {}
   }
 }
