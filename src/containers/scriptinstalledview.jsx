@@ -6,7 +6,8 @@ import {
   FormLayout,
   TextField,
   Button,
-  Banner
+  Banner,
+  TextContainer
 } from '@shopify/polaris'
 
 import {
@@ -52,15 +53,17 @@ export const ConnectedScriptInstalledView = (props) => {
   return (
     <>
       <Card sectioned>
-        <p>
-          ReCAPTCHA spambuster is installed.
-        </p>
-        <p>
-          Your blog comment form on article pages will now include reCAPTCHA v3 invisible verification. This can be confirmed by the text added under the submit button, which is mandated by the Google reCAPTCHA v3 licence. Any comments that do not pass the recaptcha verification will not be submitted.
-        </p>
-        <p>
-          Any comments that are not created by submission via the Shopify comment form displayed on blog article pages will be marked as spam. Bots typically go around the form avoiding reCAPTCHA. The best we can do is to mark them as spam accordingly.
-        </p>
+        <TextContainer>
+          <p>
+            ReCAPTCHA spambuster is installed.
+          </p>
+          <p>
+            Your blog comment form on article pages will now include reCAPTCHA v3 invisible verification. This can be confirmed by the text added under the submit button, which is mandated by the Google reCAPTCHA v3 licence. Any comments that do not pass the recaptcha verification will not be submitted.
+          </p>
+          <p>
+            Any comments that are not created by submission via the Shopify comment form displayed on blog article pages will be marked as spam. Bots typically go around the form avoiding reCAPTCHA. The best we can do is to mark them as spam accordingly.
+          </p>
+        </TextContainer>
       </Card>
       <Card title='Update reCAPTCHA details' sectioned>
         {props.errorMessage !== '' ? (
