@@ -67,9 +67,11 @@ export const ConnectedScriptInstalledView = (props) => {
       </Card>
       <Card title='Update reCAPTCHA details' sectioned>
         {props.errorMessage !== '' ? (
-          <Banner onDismiss={handleDismissError} status='critical'>
-            <p>props.errorMessage</p>
-          </Banner>
+          <Card.Section>
+            <Banner onDismiss={handleDismissError} status='critical'>
+              <p>{props.errorMessage}</p>
+            </Banner>
+          </Card.Section>
         ) : null}
         <Form onSubmit={handleUpdateKeySecret}>
           <FormLayout>
