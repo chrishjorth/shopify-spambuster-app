@@ -63,6 +63,7 @@ const rootReducer = (state, action) => {
 
     case NETWORK_WARNING_SHOW:
       state = state.set('errorMessage', action.payload.message)
+      state = state.set('isLoading', false)
       return state
     case ERROR_DISMISS:
       state = state.set('errorMessage', '')
