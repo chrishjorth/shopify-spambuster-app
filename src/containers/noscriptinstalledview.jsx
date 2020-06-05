@@ -5,12 +5,15 @@ import {
   Form,
   FormLayout,
   TextField,
-  Button
+  Button,
+  Banner,
+  TextContainer
 } from '@shopify/polaris'
 
 import {
   handleRcSiteKeyChange,
-  handleRcSiteSecretChange
+  handleRcSiteSecretChange,
+  dismissError
 } from '../actions/interface.js'
 import {
   install
@@ -19,7 +22,8 @@ import {
 export const mapStateToProps = (state, props) => {
   return {
     rcSiteKey: state.root.get('rcSiteKey'),
-    rcSiteSecret: state.root.get('rcSiteSecret')
+    rcSiteSecret: state.root.get('rcSiteSecret'),
+    errorMessage: state.root.get('errorMessage')
   }
 }
 
@@ -27,7 +31,8 @@ export const mapDispatchToProps = (dispatch) => {
   return {
     handleRcSiteKeyChange: (value) => dispatch(handleRcSiteKeyChange(value)),
     handleRcSiteSecretChange: (value) => dispatch(handleRcSiteSecretChange(value)),
-    install: () => dispatch(install())
+    install: () => dispatch(install()),
+    dismissError: () => dispatch(dismissError())
   }
 }
 
@@ -35,16 +40,28 @@ export const ConnectedNoScriptInstalledView = (props) => {
   const handleSubmit = () => {
     props.install()
   }
-  // TODO: Specify GDPR
-  // TODO: Write guide and info
+
+  const handleDismissError = () => {
+    props.dismissError()
+  }
+
   return (
     <Card sectioned>
-      <p>
-        Please insert your reCAPTCHA v3 keys. IMPORTANT: This application only supports v3.
-      </p>
-      <p>
-        Please get your keys here: <a href='https://www.google.com/recaptcha/admin/create' target='_blank' rel='noopener noreferrer'>https://www.google.com/recaptcha/admin/create</a>.
-      </p>
+      <TextContainer>
+        <p>
+          Please insert your reCAPTCHA v3 keys. IMPORTANT: This application only supports v3.
+        </p>
+        <p>
+          Please get your keys here: <a href='https://www.google.com/recaptcha/admin/create' target='_blank' rel='noopener noreferrer'>https://www.google.com/recaptcha/admin/create</a>.
+        </p>
+      </TextContainer>
+      {props.errorMessage !== '' ? (
+        <Card.Section>
+          <Banner onDismiss={handleDismissError} status='critical'>
+            <p>{props.errorMessage}</p>
+          </Banner>
+        </Card.Section>
+      ) : null}
       <Form onSubmit={handleSubmit}>
         <FormLayout>
           <TextField
