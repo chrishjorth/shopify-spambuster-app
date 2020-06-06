@@ -83,6 +83,9 @@ export const ConnectedScriptInstalledView = (props) => {
             </Banner>
           </Card.Section>
         ) : null}
+        <TextContainer>
+          <p>For security purposes the current key and secret are not displayed. If in doubt simply update with your current key and secret.</p>
+        </TextContainer>
         <Form onSubmit={handleUpdateKeySecret}>
           <FormLayout>
             <TextField
