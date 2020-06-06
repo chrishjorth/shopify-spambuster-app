@@ -13,7 +13,8 @@ import {
 import {
   handleRcSiteKeyChange,
   handleRcSiteSecretChange,
-  dismissError
+  dismissError,
+  dismissSuccess
 } from '../actions/interface.js'
 import {
   update
@@ -23,7 +24,8 @@ export const mapStateToProps = (state, props) => {
   return {
     rcSiteKey: state.root.get('rcSiteKey'),
     rcSiteSecret: state.root.get('rcSiteSecret'),
-    errorMessage: state.root.get('errorMessage')
+    errorMessage: state.root.get('errorMessage'),
+    showKeySecretUpdateSuccess: state.root.get('showKeySecretUpdateSuccess')
   }
 }
 
@@ -32,22 +34,23 @@ export const mapDispatchToProps = (dispatch) => {
     handleRcSiteKeyChange: (value) => dispatch(handleRcSiteKeyChange(value)),
     handleRcSiteSecretChange: (value) => dispatch(handleRcSiteSecretChange(value)),
     updateKeySecret: () => dispatch(update()),
-    dismissError: () => dispatch(dismissError())
+    dismissError: () => dispatch(dismissError()),
+    dismissSuccess: () => dispatch(dismissSuccess())
   }
 }
 
 // TODO: Test case of bad recaptcha keys
 export const ConnectedScriptInstalledView = (props) => {
-  // Add:
-  // - Enable disable spambusting
-  // - Update recaptcha keys
-
   const handleUpdateKeySecret = () => {
     props.updateKeySecret()
   }
 
   const handleDismissError = () => {
     props.dismissError()
+  }
+
+  const handleDismissSuccess = () => {
+    props.dismissSuccess()
   }
 
   return (
@@ -70,6 +73,13 @@ export const ConnectedScriptInstalledView = (props) => {
           <Card.Section>
             <Banner onDismiss={handleDismissError} status='critical'>
               <p>{props.errorMessage}</p>
+            </Banner>
+          </Card.Section>
+        ) : null}
+        {props.showKeySecretUpdateSuccess === true ? (
+          <Card.Section>
+            <Banner onDismiss={handleDismissSuccess} status='success'>
+              <p>Updated successfully</p>
             </Banner>
           </Card.Section>
         ) : null}

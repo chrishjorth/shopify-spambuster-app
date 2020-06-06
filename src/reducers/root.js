@@ -12,7 +12,8 @@ import {
   RCSITESECRET_CHANGE,
 
   NETWORK_WARNING_SHOW,
-  ERROR_DISMISS
+  ERROR_DISMISS,
+  SUCCESS_DISMISS
 } from '../constants.js'
 
 export const getInitialState = () => {
@@ -24,7 +25,8 @@ export const getInitialState = () => {
     rcSiteKey: '',
     rcSiteSecret: '',
 
-    errorMessage: ''
+    errorMessage: '',
+    showKeySecretUpdateSuccess: false
   })
 }
 
@@ -51,6 +53,7 @@ const rootReducer = (state, action) => {
     case UPDATE_POST_DONE:
       state = state.set('rcSiteKey', '')
       state = state.set('rcSiteSecret', '')
+      state = state.set('showKeySecretUpdateSuccess', true)
       state = state.set('isLoading', false)
       return state
 
@@ -67,6 +70,9 @@ const rootReducer = (state, action) => {
       return state
     case ERROR_DISMISS:
       state = state.set('errorMessage', '')
+      return state
+    case SUCCESS_DISMISS:
+      state = state.set('showKeySecretUpdateSuccess', false)
       return state
   }
   return state
