@@ -71,11 +71,6 @@ export const ConnectedScriptInstalledView = (props) => {
 
       <Card title='Update reCAPTCHA details' sectioned>
         <Card.Section>
-          <TextContainer>
-            <p>For security purposes the current key and secret are not displayed. If in doubt simply update with your current key and secret.</p>
-          </TextContainer>
-        </Card.Section>
-        <Card.Section>
           <Form onSubmit={handleUpdateKeySecret}>
             <FormLayout>
               {props.errorMessage !== '' ? (
@@ -105,6 +100,11 @@ export const ConnectedScriptInstalledView = (props) => {
               <Button submit>Update</Button>
             </FormLayout>
           </Form>
+        </Card.Section>
+        <Card.Section>
+          <TextContainer>
+            <p>For security purposes the current key and secret are not displayed. If in doubt simply update with your current key and secret.</p>
+          </TextContainer>
         </Card.Section>
       </Card>
     </>
