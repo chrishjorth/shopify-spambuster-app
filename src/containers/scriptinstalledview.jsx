@@ -83,24 +83,28 @@ export const ConnectedScriptInstalledView = (props) => {
             </Banner>
           </Card.Section>
         ) : null}
-        <TextContainer>
-          <p>For security purposes the current key and secret are not displayed. If in doubt simply update with your current key and secret.</p>
-        </TextContainer>
-        <Form onSubmit={handleUpdateKeySecret}>
-          <FormLayout>
-            <TextField
-              value={props.rcSiteKey}
-              onChange={props.handleRcSiteKeyChange}
-              label='reCAPTCHA site key'
-            />
-            <TextField
-              value={props.rcSiteSecret}
-              onChange={props.handleRcSiteSecretChange}
-              label='reCAPTCHA secret key'
-            />
-            <Button submit>Update</Button>
-          </FormLayout>
-        </Form>
+        <Card.Section>
+          <TextContainer>
+            <p>For security purposes the current key and secret are not displayed. If in doubt simply update with your current key and secret.</p>
+          </TextContainer>
+        </Card.Section>
+        <Card.Section>
+          <Form onSubmit={handleUpdateKeySecret}>
+            <FormLayout>
+              <TextField
+                value={props.rcSiteKey}
+                onChange={props.handleRcSiteKeyChange}
+                label='reCAPTCHA site key'
+              />
+              <TextField
+                value={props.rcSiteSecret}
+                onChange={props.handleRcSiteSecretChange}
+                label='reCAPTCHA secret key'
+              />
+              <Button submit>Update</Button>
+            </FormLayout>
+          </Form>
+        </Card.Section>
       </Card>
     </>
   )
