@@ -68,21 +68,8 @@ export const ConnectedScriptInstalledView = (props) => {
           </p>
         </TextContainer>
       </Card>
+
       <Card title='Update reCAPTCHA details' sectioned>
-        {props.errorMessage !== '' ? (
-          <Card.Section>
-            <Banner onDismiss={handleDismissError} status='critical'>
-              <p>{props.errorMessage}</p>
-            </Banner>
-          </Card.Section>
-        ) : null}
-        {props.showKeySecretUpdateSuccess === true ? (
-          <Card.Section>
-            <Banner onDismiss={handleDismissSuccess} status='success'>
-              <p>Updated successfully</p>
-            </Banner>
-          </Card.Section>
-        ) : null}
         <Card.Section>
           <TextContainer>
             <p>For security purposes the current key and secret are not displayed. If in doubt simply update with your current key and secret.</p>
@@ -91,6 +78,20 @@ export const ConnectedScriptInstalledView = (props) => {
         <Card.Section>
           <Form onSubmit={handleUpdateKeySecret}>
             <FormLayout>
+              {props.errorMessage !== '' ? (
+                <Card.Section>
+                  <Banner onDismiss={handleDismissError} status='critical'>
+                    <p>{props.errorMessage}</p>
+                  </Banner>
+                </Card.Section>
+              ) : null}
+              {props.showKeySecretUpdateSuccess === true ? (
+                <Card.Section>
+                  <Banner onDismiss={handleDismissSuccess} status='success'>
+                    <p>Updated successfully</p>
+                  </Banner>
+                </Card.Section>
+              ) : null}
               <TextField
                 value={props.rcSiteKey}
                 onChange={props.handleRcSiteKeyChange}
