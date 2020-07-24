@@ -12,7 +12,11 @@ import {
   INSTALL_GET_START,
   INSTALL_GET_DONE,
   UPDATE_POST_START,
-  UPDATE_POST_DONE
+
+  NETWORK_WARNING_SHOW_CONTACT,
+  UPDATE_POST_DONE,
+  UPDATECONTACT_POST_START,
+  UPDATECONTACT_POST_DONE
 } from '../constants.js'
 
 export const handleError = (error, warningText) => {
@@ -21,6 +25,18 @@ export const handleError = (error, warningText) => {
   }
   return {
     type: NETWORK_WARNING_SHOW,
+    payload: {
+      message: warningText
+    }
+  }
+}
+
+export const handleContactError = (error, warningText) => {
+  if (process && process.env.NODE_ENV !== 'test') {
+    console.error(error)
+  }
+  return {
+    type: NETWORK_WARNING_SHOW_CONTACT,
     payload: {
       message: warningText
     }
@@ -38,7 +54,8 @@ export const getAppStatusDone = (statusData) => {
   return {
     type: APPSTATUS_GET_DONE,
     payload: {
-      hasScriptTag: statusData.hasScriptTag
+      hasScriptTag: statusData.hasScriptTag,
+      contactEnabled: statusData.contactEnabled
     }
   }
 }
@@ -132,6 +149,42 @@ export const update = () => {
       })
       .catch(error => {
         dispatch(handleError(error, 'Connection error. Could not update.'))
+      })
+  }
+}
+
+export const updateContactStart = () => {
+  return {
+    type: UPDATECONTACT_POST_START,
+    payload: {}
+  }
+}
+
+export const updateContactDone = () => {
+  return {
+    type: UPDATECONTACT_POST_DONE,
+    payload: {}
+  }
+}
+
+export const updateContact = () => {
+  return (dispatch, getState) => {
+    const rootState = getState().root
+    const contactEnabled = rootState.get('contactEnabled')
+    const data = {
+      contactEnabled: contactEnabled
+    }
+    dispatch(updateContactStart())
+    post(BACKEND_URL + '/updatecontact' + window.location.search, data)
+      .then(json => {
+        if (json.success === true) {
+          dispatch(updateContactDone())
+        } else {
+          dispatch(handleContactError({}, 'Connection error. Could not update contact recaptcha.'))
+        }
+      })
+      .catch(error => {
+        dispatch(handleContactError(error, 'Connection error. Could not update contact recaptcha.'))
       })
   }
 }

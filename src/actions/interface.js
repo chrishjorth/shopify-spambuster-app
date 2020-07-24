@@ -3,7 +3,11 @@ import {
   RCSITESECRET_CHANGE,
 
   ERROR_DISMISS,
-  SUCCESS_DISMISS
+  SUCCESS_DISMISS,
+
+  CONTACT_ERROR_DISMISS,
+  CONTACT_SUCCESS_DISMISS,
+  CHANGE_CONTACT
 } from '../constants.js'
 
 export const handleRcSiteKeyChange = (value) => {
@@ -35,5 +39,28 @@ export const dismissSuccess = () => {
   return {
     type: SUCCESS_DISMISS,
     payload: {}
+  }
+}
+
+export const dismissErrorContact = () => {
+  return {
+    type: CONTACT_ERROR_DISMISS,
+    payload: {}
+  }
+}
+
+export const dismissSuccessContact = () => {
+  return {
+    type: CONTACT_SUCCESS_DISMISS,
+    payload: {}
+  }
+}
+
+export const changeContact = (newChecked) => {
+  return {
+    type: CHANGE_CONTACT,
+    payload: {
+      newChecked: newChecked
+    }
   }
 }

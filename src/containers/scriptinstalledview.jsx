@@ -7,17 +7,22 @@ import {
   TextField,
   Button,
   Banner,
-  TextContainer
+  TextContainer,
+  Checkbox
 } from '@shopify/polaris'
 
 import {
   handleRcSiteKeyChange,
   handleRcSiteSecretChange,
   dismissError,
-  dismissSuccess
+  dismissSuccess,
+  dismissErrorContact,
+  dismissSuccessContact,
+  changeContact
 } from '../actions/interface.js'
 import {
-  update
+  update,
+  updateContact
 } from '../actions/network.js'
 
 export const mapStateToProps = (state, props) => {
@@ -25,22 +30,41 @@ export const mapStateToProps = (state, props) => {
     rcSiteKey: state.root.get('rcSiteKey'),
     rcSiteSecret: state.root.get('rcSiteSecret'),
     errorMessage: state.root.get('errorMessage'),
-    showKeySecretUpdateSuccess: state.root.get('showKeySecretUpdateSuccess')
+    showKeySecretUpdateSuccess: state.root.get('showKeySecretUpdateSuccess'),
+    contactEnabled: state.root.get('contactEnabled'),
+    errorMessageContact: state.root.get('errorMessageContact'),
+    showContactUpdateSuccess: state.root.get('showContactUpdateSuccess')
   }
 }
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    handleRcSiteKeyChange: (value) => dispatch(handleRcSiteKeyChange(value)),
-    handleRcSiteSecretChange: (value) => dispatch(handleRcSiteSecretChange(value)),
+    updateContact: () => dispatch(updateContact()),
+    dismissErrorContact: () => dispatch(dismissErrorContact()),
+    dismissSuccessContact: () => dispatch(dismissSuccessContact()),
+    changeContact: (newChecked) => dispatch(changeContact(newChecked)),
     updateKeySecret: () => dispatch(update()),
     dismissError: () => dispatch(dismissError()),
-    dismissSuccess: () => dispatch(dismissSuccess())
+    dismissSuccess: () => dispatch(dismissSuccess()),
+    handleRcSiteKeyChange: (value) => dispatch(handleRcSiteKeyChange(value)),
+    handleRcSiteSecretChange: (value) => dispatch(handleRcSiteSecretChange(value))
   }
 }
 
 // TODO: Test case of bad recaptcha keys
 export const ConnectedScriptInstalledView = (props) => {
+  const handleUpdateContact = () => {
+    props.updateContact()
+  }
+
+  const handleDismissErrorContact = () => {
+    props.dismissErrorContact()
+  }
+
+  const handleDismissSuccessContact = () => {
+    props.dismissSuccessContact()
+  }
+
   const handleUpdateKeySecret = () => {
     props.updateKeySecret()
   }
@@ -51,6 +75,18 @@ export const ConnectedScriptInstalledView = (props) => {
 
   const handleDismissSuccess = () => {
     props.dismissSuccess()
+  }
+
+  const handleRcSiteKeyChange = (value) => {
+    props.handleRcSiteKeyChange(value)
+  }
+
+  const handleRcSiteSecretChange = (value) => {
+    props.handleRcSiteSecretChange(value)
+  }
+
+  const handleChangeContact = (newChecked) => {
+    props.changeContact(newChecked)
   }
 
   return (
@@ -67,6 +103,39 @@ export const ConnectedScriptInstalledView = (props) => {
             Any comments that are not created by submission via the Shopify comment form displayed on blog article pages will be marked as spam. Bots typically go around the form avoiding reCAPTCHA. The best we can do is to mark them as spam accordingly.
           </p>
         </TextContainer>
+      </Card>
+
+      <Card title='Contact forms' sectioned>
+        <Card.Section>
+          <Form onSubmit={handleUpdateContact}>
+            <FormLayout>
+              {props.errorMessageContact !== '' ? (
+                <Card.Section>
+                  <Banner onDismiss={handleDismissErrorContact} status='critical'>
+                    <p>{props.errorMessageContact}</p>
+                  </Banner>
+                </Card.Section>
+              ) : null}
+              {props.showContactUpdateSuccess === true ? (
+                <Card.Section>
+                  <Banner onDismiss={handleDismissSuccessContact} status='success'>
+                    <p>Updated successfully</p>
+                  </Banner>
+                </Card.Section>
+              ) : null}
+              <Checkbox
+                label='Enable reCAPTCHA on contact forms'
+                checked={props.contactEnabled}
+                onChange={handleChangeContact}
+              />
+            </FormLayout>
+          </Form>
+        </Card.Section>
+        <Card.Section>
+          <TextContainer>
+            <p>NOTE: Remember to disable Shopify's default reCAPTCHA for contact forms in your online store settings to avoid users having to pass a verification twice.</p>
+          </TextContainer>
+        </Card.Section>
       </Card>
 
       <Card title='Update reCAPTCHA details' sectioned>
@@ -89,12 +158,12 @@ export const ConnectedScriptInstalledView = (props) => {
               ) : null}
               <TextField
                 value={props.rcSiteKey}
-                onChange={props.handleRcSiteKeyChange}
+                onChange={handleRcSiteKeyChange}
                 label='reCAPTCHA site key'
               />
               <TextField
                 value={props.rcSiteSecret}
-                onChange={props.handleRcSiteSecretChange}
+                onChange={handleRcSiteSecretChange}
                 label='reCAPTCHA secret key'
               />
               <Button submit>Update</Button>
