@@ -102,6 +102,9 @@ export const ConnectedScriptInstalledView = (props) => {
           <p>
             Any comments that are not created by submission via the Shopify comment form displayed on blog article pages will be marked as spam. Bots typically go around the form avoiding reCAPTCHA. The best we can do is to mark them as spam accordingly.
           </p>
+          <p>
+            It is a reCAPTCHA requirement that the text "This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply." appears in the forms. The text can be stylized via CSS by adding rules for the class ".mssb-rc-text".
+          </p>
         </TextContainer>
       </Card>
 
