@@ -51,6 +51,7 @@ export const getAppStatusStart = () => {
 }
 
 export const getAppStatusDone = (statusData) => {
+  console.log(statusData)
   return {
     type: APPSTATUS_GET_DONE,
     payload: {
