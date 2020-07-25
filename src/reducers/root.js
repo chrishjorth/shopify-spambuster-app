@@ -85,7 +85,6 @@ const rootReducer = (state, action) => {
       return state
 
     case CHANGE_CONTACT:
-      console.log('contact set: ' + action.payload.newChecked)
       state = state.set('contactEnabled', action.payload.newChecked)
       return state
 

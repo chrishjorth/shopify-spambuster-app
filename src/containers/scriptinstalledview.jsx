@@ -128,6 +128,7 @@ export const ConnectedScriptInstalledView = (props) => {
                 checked={props.contactEnabled}
                 onChange={handleChangeContact}
               />
+              <Button submit>Save</Button>
             </FormLayout>
           </Form>
         </Card.Section>
