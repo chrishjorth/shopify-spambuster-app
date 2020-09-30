@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import '@shopify/polaris/styles.css'
+import '@shopify/polaris/dist/styles.css'
 import enTranslations from '@shopify/polaris/locales/en.json'
 import { AppProvider } from '@shopify/polaris'
 
