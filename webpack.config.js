@@ -1,5 +1,5 @@
-const webpack = require('webpack')
 const path = require('path')
+const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = (env, argv) => {
   if (argv.mode === 'production') {
@@ -29,9 +29,11 @@ module.exports = (env, argv) => {
           }
         ]
       },
-      plugins: [
-        new webpack.NamedModulesPlugin()
-      ]
+      optimization: {
+        minimizer: [new TerserPlugin({
+          extractComments: false
+        })]
+      }
     }
   } else {
     return {
@@ -65,10 +67,11 @@ module.exports = (env, argv) => {
           }
         ]
       },
-      plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NamedModulesPlugin()
-      ]
+      optimization: {
+        minimizer: [new TerserPlugin({
+          extractComments: false
+        })]
+      }
     }
   }
 }
