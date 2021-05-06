@@ -6,7 +6,7 @@ import { BACKEND_URL, STAGE, APP_PATH } from './config.js'
 import store from './store.js'
 import { get, post } from './utilities.js'
 
-console.log('Spambuster app v2.0.3 - ' + STAGE)
+console.log('Spambuster app v2.0.3b - ' + STAGE)
 
 const render = (apiKey, shop) => {
   const App = require('./containers/app.jsx').default
@@ -79,6 +79,8 @@ if (session === null && code === null && hmac !== null && shop !== null && times
     shop: shop,
     timestamp: timestamp
   }).then(json => {
+    console.log('Got confirm')
+    console.log(json)
     if (json.apiKey) {
       window.location.href = 'https://' + shop + APP_PATH
     }
