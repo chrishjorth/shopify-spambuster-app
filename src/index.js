@@ -6,7 +6,7 @@ import { BACKEND_URL, STAGE, APP_PATH } from './config.js'
 import store from './store.js'
 import { get, post } from './utilities.js'
 
-console.log('Spambuster app v2.0.3b - ' + STAGE)
+console.log('Spambuster app v2.0.3c - ' + STAGE)
 
 const render = (apiKey, shop) => {
   const App = require('./containers/app.jsx').default
@@ -51,6 +51,8 @@ const startApp = (shop) => {
   })
 }
 
+console.log(window.location.search)
+
 const urlParams = new URLSearchParams(window.location.search)
 const hmac = urlParams.get('hmac')
 const shop = urlParams.get('shop')
@@ -77,7 +79,8 @@ if (session === null && code === null && hmac !== null && shop !== null && times
     nonce: nonce,
     hmac: hmac,
     shop: shop,
-    timestamp: timestamp
+    timestamp: timestamp,
+    queryString: window.location.search
   }).then(json => {
     console.log('Got confirm')
     console.log(json)
