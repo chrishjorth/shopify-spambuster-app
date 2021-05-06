@@ -6,7 +6,7 @@ import { BACKEND_URL, STAGE, APP_PATH } from './config.js'
 import store from './store.js'
 import { get, post } from './utilities.js'
 
-console.log('Spambuster app v2.0.2 - ' + STAGE)
+console.log('Spambuster app v2.0.3 - ' + STAGE)
 
 const render = (apiKey, shop) => {
   const App = require('./containers/app.jsx').default
@@ -20,9 +20,9 @@ const render = (apiKey, shop) => {
       rootEl
     )
   } else {
-    if (process && process.env.NODE_ENV !== 'test') {
+    // if (process && process.env.NODE_ENV !== 'test') {
       console.error('React root element not found.')
-    }
+    // }
   }
 }
 

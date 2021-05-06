@@ -20,9 +20,9 @@ import {
 } from '../constants.js'
 
 export const handleError = (error, warningText) => {
-  if (process && process.env.NODE_ENV !== 'test') {
-    console.error(error)
-  }
+  // if (process && process.env.NODE_ENV !== 'test') {
+  console.error(error)
+  // }
   return {
     type: NETWORK_WARNING_SHOW,
     payload: {
@@ -32,9 +32,9 @@ export const handleError = (error, warningText) => {
 }
 
 export const handleContactError = (error, warningText) => {
-  if (process && process.env.NODE_ENV !== 'test') {
-    console.error(error)
-  }
+  // if (process && process.env.NODE_ENV !== 'test') {
+  console.error(error)
+  // }
   return {
     type: NETWORK_WARNING_SHOW_CONTACT,
     payload: {
