@@ -51,8 +51,6 @@ const startApp = (shop) => {
   })
 }
 
-console.log(window.location.search)
-
 const urlParams = new URLSearchParams(window.location.search)
 const hmac = urlParams.get('hmac')
 const shop = urlParams.get('shop')
