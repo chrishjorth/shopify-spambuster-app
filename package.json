@@ -12,7 +12,7 @@
   "author": "Chris Hjorth - contact@chrishjorth.com",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime": "^7.11.2",
+    "@babel/runtime": "^7.14.5",
     "@shopify/app-bridge": "^1.27.2",
     "@shopify/app-bridge-react": "^1.27.2",
     "@shopify/polaris": "^5.4.0",
@@ -27,16 +27,16 @@
     "standard": "^14.3.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.10",
-    "@babel/plugin-transform-runtime": "^7.13.10",
-    "@babel/preset-env": "^7.13.12",
-    "@babel/preset-react": "^7.12.13",
+    "@babel/core": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^4.3.0",
     "style-loader": "^1.2.1",
-    "webpack": "^5.28.0",
-    "webpack-cli": "^4.5.0",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2"
   }
 }
